@@ -1,0 +1,30 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "build",
+        "type": "shell",
+        "command": "g++",
+        "args": [
+          "-std=c++17",
+          "-I/usr/local/include",  // Path to SFML headers
+          "-L/usr/local/lib",      // Path to SFML libraries
+          "-o",
+          "${workspaceFolder}/build/your_project",
+          "${workspaceFolder}/src/**/*.cpp",
+          "-lsfml-graphics",
+          "-lsfml-window",
+          "-lsfml-system",
+          "-I${workspaceFolder}/src", // Add src directory to include path
+          "-I${workspaceFolder}/src/lib", // Add lib directory to include path
+        ],
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        },
+        "problemMatcher": ["$gcc"],
+        "detail": "Generated task by user"
+      }
+    ]
+  }
+  
