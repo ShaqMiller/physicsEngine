@@ -41,11 +41,14 @@ class Vector{
         Vector operator+(const Vector &other) const; 
         // - Operator overloads
         Vector operator-(const Vector &other) const; 
-        // - Operator overloads
-
+        
+        // * Operator overloads
         Vector operator*(double scalar) const;
         Vector operator*(const Vector &other) const;
-
+        
+        // / Operator overloads
+        Vector operator/(double scalar) const;
+        
         // Friend function for scalar multiplication with scalar on the left
         friend Vector operator*(double scalar, const Vector &vec);
 

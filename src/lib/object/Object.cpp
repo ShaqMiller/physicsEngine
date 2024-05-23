@@ -3,11 +3,11 @@
 #include <iostream>
 
 //Constructors
-Object::Object() : pos() ,velocity(),acceleration(){};
-Object::Object(double x,double y,double z) : pos(x,y,z),velocity(),acceleration(){};
-Object::Object(double x,double y,double z,Vector v): pos(x,y,z),velocity(v),acceleration(){};
-Object::Object(Vector pos): pos(pos),velocity(),acceleration(){};
-Object::Object(Vector pos,Vector v): pos(pos),velocity(v),acceleration(){}
+Object::Object() : pos() ,velocity(),acceleration(),mass(1.0f),COR(0.1f){};
+Object::Object(double x,double y,double z) : pos(x,y,z),velocity(),acceleration(),mass(1.0f),COR(0.1f){};
+Object::Object(double x,double y,double z,Vector v): pos(x,y,z),velocity(v),acceleration(),mass(1.0f),COR(0.1f){};
+Object::Object(Vector pos): pos(pos),velocity(),acceleration(),mass(1.0f),COR(0.1f){};
+Object::Object(Vector pos,Vector v): pos(pos),velocity(v),acceleration(),mass(1.0f),COR(0.1f){}
 
 // Destructor
 Object::~Object() {}
@@ -16,6 +16,8 @@ Object::~Object() {}
 Vector Object::getPos() const{ return this->pos;};
 Vector Object::getVelocity() const{return this->velocity;};
 Vector Object::getAcceleration() const{return this->acceleration;};
+double Object:: getMass() const {return this->mass;};
+double Object:: getCOR() const {return this->COR;};
 
 //setters
 void Object::setPos(Vector v){
@@ -26,6 +28,12 @@ void Object::setVelocity(Vector v){
 }
 void Object::setAcceleration(Vector a){
     this->acceleration = a;
+}
+void Object::setMass(double m){
+    this->mass = m;
+}
+void Object::setCOR(double val){
+    this->COR = val;
 }
 
 void Object::update(float dt) {

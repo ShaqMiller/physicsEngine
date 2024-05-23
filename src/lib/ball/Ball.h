@@ -18,7 +18,7 @@ class Ball : public Object {
         Ball(Vector pos, Vector v, double radius);
 
         // Destructor
-        ~Ball();
+        virtual ~Ball();
 
         // Getter and setter for radius
         double getRadius() const;
@@ -26,9 +26,13 @@ class Ball : public Object {
 
         // Override render function
         void render(sf::RenderWindow& window, float window_height) override;
-
-        // Collision detection method
+        void updateWithDrag(double gravity, double fluidDensity, double dt) override;
+        void move(float dt) override;
+        // Collision detection method for wall
         bool checkCollision(const Wall& wall) const;
+        void handleCollision(const Wall& wall);
+        Vector getPenetrationVector(const Wall& wall) const;
+
 };
 
 #endif // BALL_H

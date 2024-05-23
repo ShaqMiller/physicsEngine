@@ -81,6 +81,11 @@ Vector Vector::operator-(const Vector &other) const {
 Vector Vector::operator*(const double scalar) const {
     return Vector(this->x*scalar,this->y*scalar,this->z*scalar);
 }
+
+Vector Vector::operator/(double scalar) const{
+    return Vector(this->x/scalar,this->y/scalar,this->z/scalar);
+}
+
 Vector Vector::operator*(const Vector &other) const {
     return Vector(
         y * other.z - z * other.y,
@@ -92,3 +97,4 @@ Vector Vector::operator*(const Vector &other) const {
 Vector operator*(double scalar, const Vector &vec) {
     return Vector(vec.x * scalar, vec.y * scalar, vec.z * scalar);
 }
+

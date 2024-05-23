@@ -16,7 +16,8 @@ public:
     Wall(Vector pos, double width, double height);
 
     // Destructor
-    ~Wall();
+    virtual ~Wall(); // Add virtual destructor
+    //~Wall();
 
     // Render method override
     void render(sf::RenderWindow& window, float window_height) override;
@@ -29,6 +30,10 @@ public:
     double getHeight() const;
     void setWidth(double width);
     void setHeight(double height);
+
+    // Update with drag method override
+    void updateWithDrag(double gravity, double fluidDensity, double dt) override;
+    void move(float dt) override;
 };
 
 #endif // WALL_H

@@ -43,3 +43,10 @@ void Wall::setHeight(double height) {
     this->height = height;
     shape.setSize(sf::Vector2f(width, height));
 }
+
+// Update with drag method
+void Wall::updateWithDrag(double gravity, double fluidDensity, double dt) {
+    // Walls are static in this context, so no need to implement drag logic.
+    // However, this satisfies the pure virtual requirement.
+}
+void Wall::move(float dt) {};
