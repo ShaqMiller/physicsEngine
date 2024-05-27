@@ -28,10 +28,16 @@ class Ball : public Object {
         void render(sf::RenderWindow& window, float window_height) override;
         void updateWithDrag(double gravity, double fluidDensity, double dt) override;
         void move(float dt) override;
+
         // Collision detection method for wall
         bool checkCollision(const Wall& wall) const;
         void handleCollision(const Wall& wall);
         Vector getPenetrationVector(const Wall& wall) const;
+
+        //Collision with ball
+        bool checkCollision(const Ball& other) const;
+        void handleCollision(Ball& other);
+
 
 };
 

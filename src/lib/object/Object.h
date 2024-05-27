@@ -9,6 +9,7 @@ protected:
     Vector pos;
     Vector velocity;
     Vector acceleration;
+    bool isKinematic;
     double mass;
     double COR;
 
@@ -29,12 +30,14 @@ public:
     Vector getAcceleration() const;
     double getMass() const;
     double getCOR() const;
+    bool getIsKinematic() const;
 
     void setMass(double m);
     void setVelocity(Vector v);
     void setPos(Vector v);
     void setAcceleration(Vector v);
     void setCOR(double val);
+    void setIsKinematic(bool val);
 
     // Render function (pure virtual)
     virtual void render(sf::RenderWindow& window, float window_height) = 0;

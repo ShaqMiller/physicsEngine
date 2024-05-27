@@ -42,6 +42,7 @@ double Vector::magnitude() const {
 
 Vector Vector::normalize() const{
     double mag = this->magnitude();
+    if(mag == 0)  return Vector(0,0,0);
     return Vector(x / mag, y / mag, z / mag);
 }
 
@@ -83,6 +84,7 @@ Vector Vector::operator*(const double scalar) const {
 }
 
 Vector Vector::operator/(double scalar) const{
+    if(scalar == 0) return Vector(0,0,0);
     return Vector(this->x/scalar,this->y/scalar,this->z/scalar);
 }
 

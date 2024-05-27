@@ -147,6 +147,63 @@ void Ball::handleCollision(const Wall& wall) {
     this->setVelocity(newVel);
 }
 
+// Check if this ball collides with another ball
+bool Ball::checkCollision(const Ball& other) const {
+    Vector otherPos = other.getPos();
+    Vector myPos = this->getPos();
+    
+    otherPos.setX(otherPos.getX()+other.getRadius());
+    otherPos.setY(otherPos.getY()-other.getRadius());
+
+    myPos.setX(myPos.getX()+this->getRadius());
+    myPos.setY(myPos.getY()-this->getRadius());
+
+    Vector diff =otherPos - myPos;
+    double posDiff = diff.magnitude();
+    double radiusSum = this->radius + other.radius;
+    return posDiff < radiusSum;
+}
+
+// Handle collision with another ball
+void Ball::handleCollision(Ball& other) {
+    Vector pos1 = this->getPos();
+    pos1.setX(pos1.getX()+this->getRadius());
+    pos1.setY(pos1.getY()-this->getRadius());
+
+    Vector pos2 = other.getPos();
+    pos2.setX(pos2.getX()+other.getRadius());
+    pos2.setY(pos2.getY()-other.getRadius());
+
+    Vector vel1 = this->getVelocity();
+    Vector vel2 = other.getVelocity();
+
+    Vector collisionNormal = (pos2 - pos1).normalize();
+    Vector relativeVelocity = vel1 - vel2;
+
+    double velocityAlongNormal = relativeVelocity.dot(collisionNormal);
+    std::cout<<"Vel along Normal "<<velocityAlongNormal<<std::endl;
+
+    if (velocityAlongNormal < 0) return; // Balls are moving apart
+    this->setVelocity((-1 *collisionNormal) * vel1.magnitude());
+    other.setVelocity(collisionNormal * vel2.magnitude());
+    return;
+    // double e = 0.5; // Coefficient of restitution (elasticity)
+    // double j = -(1 + e) * velocityAlongNormal;
+    // j /= 1 / this->mass + 1 / other.mass;
+
+    // Vector impulse = j * collisionNormal;
+    // this->setVelocity(vel1 - impulse / this->mass);
+    // other.setVelocity(vel2 + impulse / other.mass);
+
+    // // Separate the balls to avoid sinking into each other
+    // double overlap = this->radius + other.radius - (pos2 - pos1).magnitude();
+    // Vector separation = collisionNormal * (overlap / 2.0);
+    // this->setPos(pos1 - separation);
+    // other.setPos(pos2 + separation);
+}
+
+
+
 void Ball::updateWithDrag(double gravity, double fluidDensity, double dt){
     double referenceArea = M_PI*radius*radius;
     double dragCoefficient = 0.47f;
