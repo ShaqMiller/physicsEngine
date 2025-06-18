@@ -18,7 +18,7 @@ Wall::~Wall() {}
 
 void Wall::render(sf::RenderWindow& window, float window_height) {
     float inverted_y = window_height - pos.getY() - height; // Adjust for origin being at bottom-left
-    shape.setPosition(pos.getX(), inverted_y);
+    shape.setPosition(sf::Vector2f(pos.getX(), inverted_y));
     window.draw(shape);
 }
 

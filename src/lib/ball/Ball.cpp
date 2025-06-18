@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES
 #include "Ball.h"
 #include "../wall/Wall.h"
 
@@ -58,7 +59,7 @@ void Ball::setRadius(double r) {
 
 void Ball::render(sf::RenderWindow& window, float window_height) {
     float inverted_y = window_height - getPos().getY();
-    shape.setPosition(getPos().getX(), inverted_y);
+    shape.setPosition(sf::Vector2f(getPos().getX(), inverted_y));
     
     window.draw(shape);
 }

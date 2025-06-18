@@ -1,0 +1,42 @@
+# Compiler and flags
+CXX = g++
+CXXFLAGS = -Wall -std=c++17 -IDependencies/SFML/include
+
+LDFLAGS = -LDependencies/SFML/lib -lsfml-graphics -lsfml-window -lsfml-system
+
+SRC_DIR = src
+OBJ_DIR = obj
+BIN_DIR = bin
+DLLS = Dependencies/SFML/sfml-window-2.dll Dependencies/SFML/sfml-graphics-2.dll Dependencies/SFML/sfml-system-2.dll
+
+# Source files
+SOURCES = \
+	$(SRC_DIR)/main.cpp \
+	$(SRC_DIR)/lib/vector/Vector.cpp \
+	$(SRC_DIR)/lib/ball/Ball.cpp \
+	$(SRC_DIR)/lib/wall/Wall.cpp \
+	$(SRC_DIR)/lib/object/Object.cpp
+
+# Convert .cpp -> .o for object files
+OBJECTS = $(patsubst %.cpp, $(OBJ_DIR)/%.o, $(subst $(SRC_DIR)/,,$(SOURCES)))
+
+# Final target binary
+TARGET = $(BIN_DIR)/engine.exe
+
+all: $(TARGET)
+
+$(TARGET): $(OBJECTS)
+	@mkdir -p $(BIN_DIR)
+	$(CXX) $(OBJECTS) -o $@ $(LDFLAGS)
+	xcopy /Y /Q Dependencies\SFML\*.dll bin\
+
+# Pattern rule to compile source files into obj/
+$(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(dir $@)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+clean:
+	@rm -rf $(OBJ_DIR)
+	@rm -f $(BIN_DIR)/*.exe
+
+rebuild: clean all
